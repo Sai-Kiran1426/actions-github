@@ -34,7 +34,7 @@ jobs:
 
       - name: Create Artifact Registry Repo
         run: |
-          gcloud artifacts repositories create hello-repo1 \
+          gcloud artifacts repositories create hello-repo2 \
             --repository-format=docker \
             --location=us-central1 \
             --description="Artifact Registry for Cloud Run App" || true
@@ -104,10 +104,10 @@ jobs:
 
       - name: Build and Deploy to Cloud Run
         run: |
-          gcloud builds submit ./app \
-            --tag us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/hello-repo1/hello-app
+          gcloud builds submit . \
+            --tag us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/hello-repo2/hello-app
           gcloud run deploy hello-app \
-            --image us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/hello-repo1/hello-app \
+            --image us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/hello-repo2/hello-app \
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated
